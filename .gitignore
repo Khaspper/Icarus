@@ -1,1 +1,53 @@
+# Local docs / notes
 docs
+
+# Generated per-repo graph state (contains local absolute paths + other repos' code summaries)
+state/
+*.positions.json
+*.watch.json
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Caches / build output
+.cache/
+tmp/
+dist/
+build/
+coverage/
+.vite/
+.parcel-cache/
+
+# Editor / OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code local settings
+.claude/settings.local.json
+graphify-out/
