@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iccarus</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" class="mark" aria-hidden="true">
+      <circle cx="5" cy="6" r="2.4"/><circle cx="19" cy="9" r="2.4"/><circle cx="9" cy="18" r="2.4"/>
+      <path d="M7.2 6.9 16.7 8.6M6.2 8.1 8 15.7M17.4 11 10.7 16.6"/>
+    </svg>
+    <span class="repo" id="repoName">loading…</span>
+    <span class="crumbs" id="crumbs"></span>
+  </div>
+
+  <div class="top-actions">
+    <span class="coverage" id="coverage" title="How much of this map came from reading the real code"></span>
+    <button class="ghost" id="resetView"><span>Reset view</span></button>
+    <div class="search">
+      <input id="search" placeholder="Search boxes, files, functions…" autocomplete="off">
+      <kbd>⌘K</kbd>
+      <div class="results" id="searchResults" hidden></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button id="tabMap"  class="tab on">Map</button>
+  <button id="tabCode" class="tab">Code</button>
+  <span class="tabnote">The map is what the code means. Code is where it lives.</span>
+</div>
+
+<div id="mapPane" class="pane on">
+
+  <aside class="left mleft">
+    <div class="panel-head"><span>What is on the map</span>
+      <button class="tiny" id="mRebuild" title="Check what moved">&#8635;</button></div>
+    <div class="outline" id="mOutline"></div>
+
+    <div class="mblock">
+      <div class="panel-head"><span>Ask in words</span></div>
+      <textarea id="mAsk" rows="3"
+        placeholder="I'm fixing a bug in chunking in RAG"></textarea>
+      <button class="primary" id="mAskGo">Go</button>
+      <div class="mhint" id="mAskHint"></div>
+    </div>
+
+    <div class="mblock">
+      <button class="secondary" id="mSurface">Name the big parts</button>
+      <div class="mhint">One model call. It reads folder and file names and the
+        biggest files, not the whole repo.</div>
+    </div>
+  </aside>
+
+  <section class="stage mstage" id="mStage">
+    <svg id="mCanvas" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="mArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+        <marker id="mArrowPlanned" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+        <pattern id="mDots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1.2" cy="1.2" r="1.2"/>
+        </pattern>
+      </defs>
+      <rect id="mBg" x="-100000" y="-100000" width="200000" height="200000" fill="url(#mDots)"/>
+      <g id="mWorld">
+        <g id="mEdgeLayer"></g>
+        <g id="mBoxLayer"></g>
+      </g>
+    </svg>
+
+    <div class="mtrail" id="mTrail"></div>
+    <div class="mempty" id="mEmpty">Nothing on the map yet. Name the big parts, or just say what you are working on.</div>
+
+    <div class="zoom mzoom">
+      <button id="mZoomOut">&minus;</button><span id="mZoomLevel">100%</span>
+      <button id="mZoomIn">+</button><button id="mZoomFit" title="Fit">&#9210;</button>
+    </div>
+
+    <div class="status" id="mStatus"></div>
+  </section>
+
+  <aside class="right mright" id="mInspector">
+    <div class="empty" id="mInspectorEmpty">
+      <p>Click a node.</p>
+      <p class="dim">A node says what something means. It never says where it lives.</p>
+    </div>
+    <div id="mInspectorBody" hidden></div>
+  </aside>
+
+</div>
+
+<!-- The Code tab, exactly as it was. Only its wrapper is new. -->
+<div id="codePane" class="pane">
+
+<main>
+  <aside class="left">
+    <div class="panel-head">
+      <span>The repo</span>
+      <button class="tiny" id="collapseAll" title="Close everything">⤢</button>
+    </div>
+    <div class="outline" id="outline"></div>
+    <div class="notes">
+      <div class="panel-head"><span>Notes</span></div>
+      <textarea id="workspaceNotes" placeholder="What are you trying to do here?"></textarea>
+      <div class="saved" id="savedAt"></div>
+    </div>
+  </aside>
+
+  <section class="stage" id="stage">
+    <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+        <marker id="arrowPlanned" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z"/>
+        </marker>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1.2" cy="1.2" r="1.2"/>
+        </pattern>
+      </defs>
+      <rect id="bg" x="-100000" y="-100000" width="200000" height="200000" fill="url(#dots)"/>
+      <g id="world">
+        <g id="edgeLayer"></g>
+        <g id="boxLayer"></g>
+        <g id="noteLayer"></g>
+        <g id="drawLayer"></g>
+      </g>
+    </svg>
+
+    <div class="held" id="held" hidden></div>
+
+    <div class="toolbar">
+      <button data-tool="select" class="on" title="Select">
+        <svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.6L10.5 19z"/></svg>
+      </button>
+      <button data-tool="pan" title="Pan">
+        <svg viewBox="0 0 24 24"><path d="M12 3v8M12 21v-6M3 12h8M21 12h-6M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg>
+      </button>
+      <span class="sep"></span>
+      <button data-tool="plan" title="Draw a box for something that does not exist yet">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5" stroke-dasharray="3 2.5"/><path d="M12 9.5v5M9.5 12h5"/></svg>
+      </button>
+      <button data-tool="arrow" title="Draw an arrow between boxes">
+        <svg viewBox="0 0 24 24"><path d="M4 12h15M14 7l5 5-5 5"/></svg>
+      </button>
+      <button data-tool="note" title="Sticky note">
+        <svg viewBox="0 0 24 24"><path d="M5 4h14v10l-5 6H5z"/><path d="M19 14h-5v6"/></svg>
+      </button>
+      <span class="sep"></span>
+      <button data-tool="tidy" title="Tidy up">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="7" height="6" rx="1.5"/><rect x="13.5" y="4" width="7" height="6" rx="1.5"/><rect x="3.5" y="14" width="7" height="6" rx="1.5"/><rect x="13.5" y="14" width="7" height="6" rx="1.5"/></svg>
+      </button>
+    </div>
+
+    <div class="zoom">
+      <button id="zoomOut">−</button>
+      <span id="zoomLevel">100%</span>
+      <button id="zoomIn">+</button>
+      <button id="zoomFit" title="Fit">⛶</button>
+    </div>
+
+    <div class="status" id="status"></div>
+  </section>
+
+  <aside class="right" id="inspector">
+    <div class="empty" id="inspectorEmpty">
+      <p>Click a box.</p>
+      <p class="dim">Grey means nobody has written down what it is for. Click one and press Fill in.</p>
+    </div>
+    <div id="inspectorBody" hidden></div>
+  </aside>
+</main>
+
+</div>
+
+<div class="sheet msheet" id="mSheet" hidden>
+  <div class="sheet-head"><span id="mSheetTitle"></span>
+    <button class="ghost" id="mSheetClose">Close</button></div>
+  <div class="sheet-body" id="mSheetBody"></div>
+  <div class="sheet-foot" id="mSheetFoot"></div>
+</div>
+<div class="scrim" id="mScrim" hidden></div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-head">
+    <span id="sheetTitle"></span>
+    <button class="ghost" id="sheetClose">Close</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div class="sheet-foot" id="sheetFoot"></div>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+
+<script type="module" src="app.js"></script>
+<script type="module" src="map.js"></script>
+</body>
+</html>

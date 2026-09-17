@@ -1,0 +1,290 @@
+{
+  "repoRoot": "/Users/khaspper/Documents/MoFlo/MoFlo-Cloud",
+  "builtAt": "2026-09-16T16:09:39.549Z",
+  "stamp": {
+    "billing": 1789574197378.3845,
+    "knowledge": 1789574197377.5928,
+    "library": 1789574197378.0112,
+    "moBlogs": 1789574197376.9607,
+    "moMail": 1789574197377.1614,
+    "moReviews": 1789574197377.7947,
+    "moSocial": 1789574197376.4983,
+    "personas": 1789574197377.344,
+    "rag": 1789574220074.0571,
+    "rag-chunking": 1789574565513.5974,
+    "rag-chunking-clearingLeftovers": 1789574565514.7437,
+    "rag-chunking-documentText": 1789574555158.0525,
+    "rag-chunking-savingBatches": 1789574565515.649,
+    "rag-chunking-videoClips": 1789574555195.079,
+    "rag-documentChunksTable": 1789574331301.4053,
+    "rag-documentsTable": 1789574331301.259,
+    "rag-embedding": 1789574331301.1245
+  },
+  "nodes": {
+    "billing": {
+      "name": "Billing",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "knowledge": {
+      "name": "Knowledge",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "library": {
+      "name": "Library",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "moBlogs": {
+      "name": "MoBlogs",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "moMail": {
+      "name": "MoMail",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "moReviews": {
+      "name": "MoReviews",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "moSocial": {
+      "name": "MoSocial",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "personas": {
+      "name": "Personas",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag": {
+      "name": "RAG",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag-chunking": {
+      "name": "chunking",
+      "state": "read",
+      "files": [
+        "supabase/migrations/20260517051904_rag_tables.sql",
+        "trigger/python/chunk_doc.py",
+        "trigger/src/trigger/rag-functions/embedding-logic.ts",
+        "trigger/src/trigger/rag-functions/embedding-task.ts",
+        "trigger/src/trigger/rag-functions/helper-functions.ts",
+        "trigger/src/trigger/rag-functions/helper-logic.ts",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts",
+        "trigger/src/trigger/rag-functions/types.ts"
+      ],
+      "functions": [
+        "chunkDocument",
+        "chunkVideo",
+        "cutVideo",
+        "batchInsertChunks",
+        "buildChunkBatches",
+        "videoChunkStarts",
+        "createVLMCaption",
+        "countDocumentChunks"
+      ],
+      "fingerprints": {
+        "supabase/migrations/20260517051904_rag_tables.sql": "5031302b",
+        "trigger/python/chunk_doc.py": "0c51d9f4",
+        "trigger/src/trigger/rag-functions/embedding-logic.ts": "25a3f89e",
+        "trigger/src/trigger/rag-functions/embedding-task.ts": "52b9f07e",
+        "trigger/src/trigger/rag-functions/helper-functions.ts": "8845e269",
+        "trigger/src/trigger/rag-functions/helper-logic.ts": "0dd0518e",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts": "11f5de79",
+        "trigger/src/trigger/rag-functions/types.ts": "529d7e8b"
+      },
+      "marked": false
+    },
+    "rag-chunking-clearingLeftovers": {
+      "name": "Clearing leftovers",
+      "state": "read",
+      "files": [
+        "trigger/src/trigger/rag-functions/helper-functions.ts",
+        "trigger/src/trigger/rag-functions/helper-logic.ts",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts"
+      ],
+      "functions": [
+        "getContentHash",
+        "clearDocumentChunks",
+        "findDocumentByHash",
+        "countDocumentChunks",
+        "isDocumentPopulated",
+        "hashContent"
+      ],
+      "fingerprints": {
+        "trigger/src/trigger/rag-functions/helper-functions.ts": "8845e269",
+        "trigger/src/trigger/rag-functions/helper-logic.ts": "0dd0518e",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts": "11f5de79"
+      },
+      "marked": false
+    },
+    "rag-chunking-documentText": {
+      "name": "Document text",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag-chunking-savingBatches": {
+      "name": "Saving batches",
+      "state": "read",
+      "files": [
+        "trigger/src/trigger/rag-functions/helper-functions.ts",
+        "trigger/src/trigger/rag-functions/helper-logic.ts",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts"
+      ],
+      "functions": [
+        "buildChunkBatches",
+        "batchInsertChunks"
+      ],
+      "fingerprints": {
+        "trigger/src/trigger/rag-functions/helper-functions.ts": "8845e269",
+        "trigger/src/trigger/rag-functions/helper-logic.ts": "0dd0518e",
+        "trigger/src/trigger/rag-functions/ingest-library-uploads.ts": "11f5de79"
+      },
+      "marked": false
+    },
+    "rag-chunking-videoClips": {
+      "name": "Video clips",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag-documentChunksTable": {
+      "name": "document_chunks table",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag-documentsTable": {
+      "name": "documents table",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    },
+    "rag-embedding": {
+      "name": "embedding",
+      "state": "named",
+      "files": [],
+      "functions": [],
+      "fingerprints": {},
+      "marked": false
+    }
+  },
+  "byFile": {
+    "supabase/migrations/20260517051904_rag_tables.sql": [
+      "rag-chunking"
+    ],
+    "trigger/python/chunk_doc.py": [
+      "rag-chunking"
+    ],
+    "trigger/src/trigger/rag-functions/embedding-logic.ts": [
+      "rag-chunking"
+    ],
+    "trigger/src/trigger/rag-functions/embedding-task.ts": [
+      "rag-chunking"
+    ],
+    "trigger/src/trigger/rag-functions/helper-functions.ts": [
+      "rag-chunking",
+      "rag-chunking-clearingLeftovers",
+      "rag-chunking-savingBatches"
+    ],
+    "trigger/src/trigger/rag-functions/helper-logic.ts": [
+      "rag-chunking",
+      "rag-chunking-clearingLeftovers",
+      "rag-chunking-savingBatches"
+    ],
+    "trigger/src/trigger/rag-functions/ingest-library-uploads.ts": [
+      "rag-chunking",
+      "rag-chunking-clearingLeftovers",
+      "rag-chunking-savingBatches"
+    ],
+    "trigger/src/trigger/rag-functions/types.ts": [
+      "rag-chunking"
+    ]
+  },
+  "byFunction": {
+    "chunkdocument": [
+      "rag-chunking"
+    ],
+    "chunkvideo": [
+      "rag-chunking"
+    ],
+    "cutvideo": [
+      "rag-chunking"
+    ],
+    "batchinsertchunks": [
+      "rag-chunking",
+      "rag-chunking-savingBatches"
+    ],
+    "buildchunkbatches": [
+      "rag-chunking",
+      "rag-chunking-savingBatches"
+    ],
+    "videochunkstarts": [
+      "rag-chunking"
+    ],
+    "createvlmcaption": [
+      "rag-chunking"
+    ],
+    "countdocumentchunks": [
+      "rag-chunking",
+      "rag-chunking-clearingLeftovers"
+    ],
+    "getcontenthash": [
+      "rag-chunking-clearingLeftovers"
+    ],
+    "cleardocumentchunks": [
+      "rag-chunking-clearingLeftovers"
+    ],
+    "finddocumentbyhash": [
+      "rag-chunking-clearingLeftovers"
+    ],
+    "isdocumentpopulated": [
+      "rag-chunking-clearingLeftovers"
+    ],
+    "hashcontent": [
+      "rag-chunking-clearingLeftovers"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "plan": {
+    "boxes": [],
+    "edges": [],
+    "notes": []
+  },
+  "meaning": {
+    "sym:moflo_cloud_app_personas_components_persona_app_style_edit_togglelogic_toggleappliestoapp": {
+      "whatItDoes": "Checks whether a setting should apply to one specific app. Takes a list of app names and one app; if the list is empty or missing it applies to all apps, otherwise it matches the app name against the list ignoring letter case.",
+      "dataIn": [
+        "list of app names or null/empty",
+        "one app name to check"
+      ],
+      "manipulation": [
+        "treats missing/empty list as applies-to-all",
+        "lowercases names before comparing",
+        "checks if app name is in the list"
+      ],
+      "dataOut": [
+        "true or false, whether the setting applies to that app"
+      ],
+      "tablesTouched": [],
+      "functionsCalled": [
+        "toggleAppliesToApp"
+      ],
+      "observed": "A person would see certain toggle rows only show up for the apps they're meant for, and show up everywhere if no apps were specified.",
+      "checked": [
+        {
+          "ok": true,
+          "what": "calls toggleAppliesToApp",
+          "where": "moflo-cloud/app/personas/components/persona-app-style-edit/toggleLogic.ts:14",
+          "why": null
+        }
+      ],
+      "problems": []
+    }
+  },
+  "notes": ""
+}
